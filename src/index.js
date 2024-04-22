@@ -3,6 +3,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 // utils
 import connectDB from './config/db.js';
@@ -17,6 +18,13 @@ const port = process.env.PORT || 5001;
 connectDB();
 
 const app = express();
+
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.FRONTEND_URL,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
